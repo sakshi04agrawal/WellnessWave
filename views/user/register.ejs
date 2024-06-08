@@ -1,0 +1,36 @@
+<% layout('/layouts/boilerplate') %>
+    <style>
+        body {
+            background-image: url("https://res.cloudinary.com/dfxbpcwoq/image/upload/v1717828770/versevista/qiragskndwgh3w4iy50b.jpg");
+            background-size: cover;
+            background-position: center;
+            box-shadow: inset 0 0 5rem rgba(0, 0, 0, 0.5);
+        }
+    </style>
+    <h1>Register</h1>
+    <form action="/register" class="validated-form" method="POST" novalidate>
+        <div class="mb-3">
+            <label class="form-label" for="username">Username</label>
+            <input class="form-control" type="text" id="username" name="username" required>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for="email">Email</label>
+            <input class="form-control" type="email" id="email" name="email" required>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+        </div>
+
+
+        <div class="mb-3">
+            <label class="form-label" for="password">password</label>
+            <input class="form-control" type="password" id="password" name="password" required>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+        </div>
+        <button class="btn btn-success">Register</button>
+    </form>

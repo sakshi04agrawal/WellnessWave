@@ -1,0 +1,42 @@
+<% layout('/layouts/boilerplate') %>
+    <style>
+        body {
+            background-image: url("https://res.cloudinary.com/dfxbpcwoq/image/upload/v1717828768/versevista/mvq6i7vs43fe4nzsanvv.jpg");
+            background-size: cover;
+            background-position: center;
+            box-shadow: inset 0 0 5rem rgba(0, 0, 0, 0.5);
+        }
+    </style>
+    <div class="row">
+        <h1 class="text-center">New Blog!</h1>
+        <div class="col-6 offset-3">
+            <form action="/blogs" method="POST" novalidate class="validated-form" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label class="form-label" for="title">Title</label>
+                    <input class="form-control" type="text" id="title" name="blog[title]" required>
+                    <div class="valid-feedback">
+                        Looks Good!
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="shortdescription">Short_Description</label>
+                    <input class="form-control" type="text" id="shortdescription" name="blog[shortdescription]"
+                        required>
+                    <div class="valid-feedback">
+                        Looks Good!
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="description">Description</label>
+                    <textarea class="form-control" type="text" id="description" name="blog[description]"
+                        required></textarea>
+                    <div class="valid-feedback">
+                        Looks Good!
+                    </div>
+                </div>
+                <div class="mb-3"><input type="file" name="logo" id="" multiple></div>
+                <button class="btn btn-success">Add BLOG</button>
+                <a href="/blogs"> ALL Blogs!!</a>
+            </form>
+        </div>
+    </div>

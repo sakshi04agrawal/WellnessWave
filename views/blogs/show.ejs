@@ -1,0 +1,137 @@
+<% layout('/layouts/boilerplate') %>
+
+    <style>
+        body {
+            background-color: #e3f2fd;
+        }
+    </style>
+    <div class="row mb-3">
+        <div id="blogCarousel" class="carousel slide">
+            <div class="carousel-inner">
+                <% blog.logo.forEach((img,i)=> {%>
+                    <div class="carousel-item <%= i===0? 'active': ''%>">
+                        <img src="<%= img.url %>" class="d-block w-100" alt="...">
+                    </div>
+                    <% }) %>
+            </div>
+            <% if(blog.logo.length>1){ %>
+                <button class="carousel-control-prev" type="button" data-bs-target="#blogCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#blogCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+                <% } %>
+        </div>
+        <div class="col-12 mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title text-center">
+                        <%= blog.title %>
+                    </h4>
+                    <h6 class="card-subtitle mb-2 text-body-secondary text-center">
+                        <%= blog.shortdescription %>
+                    </h6>
+                </div>
+                <hr>
+                <div class="card-body">
+                    <p class="card-text">
+                        <%= blog.description %>
+                    </p>
+                </div>
+                <ul class="list-group list-group-flush ">
+                    <li class="list-group-item">
+                        <b>Submitted By:</b>
+                        <%= blog.author.username %>
+
+                    </li>
+                </ul>
+                <div class="card-body">
+                    <h4>Likes:<%=blog.likes.length %>
+                    </h4>
+                    <% if(!currentUser){ %>
+                        <h6 class="card-subtitle mb-2 text-body-secondary text-center">
+                            Login to share your valuable tips!!
+                        </h6>
+                        <% } %>
+                </div>
+                <div class="card-body">
+                    <% if (currentUser) { %>
+                        <% if (!blog.likes.includes(currentUser._id)) { %>
+                            <a href="/blogs/<%= blog._id %>/like" style="text-decoration: none;">
+                                <i class="bi bi-hand-thumbs-up-fill" style="font-size: 2rem;"></i>
+                            </a>
+                            <%= blog.likes.length %>
+                                <i class="bi bi-hand-thumbs-down-fill" style="font-size: 2rem;"
+                                    onclick="window.location.href='/blogs/<%= blog._id %>/dislike'"></i>
+                                <%= blog.dislikes.length %>
+                                    <% } else { %>
+                                        <% if (!blog.dislikes.includes(currentUser._id)) { %>
+                                            <h5>Want to dislike?</h5>
+                                            <a href="/blogs/<%= blog._id %>/dislike" style="text-decoration: none;">
+                                                <i class="bi bi-hand-thumbs-down-fill" style="font-size: 2rem;"></i>
+                                            </a>
+                                            <% } %>
+                                                <% } %>
+                                                    <% } %>
+
+
+                </div>
+
+                <% if(currentUser&& blog.author.equals(currentUser._id)) {%>
+                    <div class=" card-body text-center">
+                        <a href="/blogs/<%= blog._id %>/edit" class="card-link btn btn-warning">Edit this
+                            Blog</a>
+                        <form class="d-inline" action="/blogs/<%= blog._id %>?_method=DELETE" method="POST">
+                            <button class="btn btn-danger">DELETE!</button>
+                        </form>
+                    </div>
+                    <% } %>
+            </div>
+        </div>
+        <div class="row offset-2">
+            <div class="col-8">
+                <% if(currentUser) {%>
+                    <h3>Leave Comments:</h3>
+                    <div>
+                        <form action="/blogs/<%= blog._id%>/comments" method="POST" class="mb-3 validated-form"
+                            novalidate>
+                            <div class="mb-3">
+                                <label class="form-label" for="comment"></label>
+                                <textarea class="form-control" name="comment[body]" id="comment" cols="30" rows="3"
+                                    required></textarea>
+                                <div class="valid-feedback">
+                                    Looks Good!
+                                </div>
+                            </div>
+                            <button class="btn btn-success">Comment</button>
+                        </form>
+                    </div>
+                    <% } %>
+                        <% if(blog.comments.length){ %>
+                            <h3> Comment Section::</h3>
+                            <% for (let comment of blog.comments ) {%>
+                                <div class="card mb-3">
+                                    <div class="card-body">
+                                        <h6 class="card-subtitle mb-2 text-muted">
+                                            By: <%= comment.author.username %>
+                                        </h6>
+                                        <p>
+                                            <%= comment.body %>
+                                        </p>
+                                        <% if(currentUser&& comment.author.equals(currentUser._id)) {%>
+                                            <form
+                                                action="/blogs/<%= blog._id%>/comments/<%= comment._id%>?_method=DELETE"
+                                                method="POST">
+                                                <button class="btn btn-sm btn-danger">DELETE</button>
+                                            </form>
+                                            <% } %>
+                                    </div>
+                                </div>
+                                <% } %>
+                                    <% } %>
+            </div>
+        </div>
+    </div>

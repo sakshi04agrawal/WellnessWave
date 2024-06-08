@@ -1,0 +1,26 @@
+<nav class="navbar sticky-top navbar-expand-lg" style="background-color: #e3f2fd;">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/"><b>WellnessWave</b></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-link active" aria-current="page" href="/blogs"><b>Home</b></a>
+                <a class="nav-link" href="/about"><b>About</b></a>
+            </div>
+            <div class="navbar-nav ml-auto justify-content-end">
+                <% if(!currentUser){ %>
+                    <a class="nav-link" href="/login"><b>Login</b></a>
+                    <a class="nav-link" href="/register"><b>Register</b></a>
+
+                    <% }else{ %>
+                        <a class="nav-link" href="/profile"><b>Your Profile</b></a>
+                        <a class="nav-link" href="/logout"><b>Logout</b></a>
+                        <a class="nav-link" href="/blogs/new"><b>ADD New Blog</b></a>
+                        <% } %>
+            </div>
+
+        </div>
+</nav>
